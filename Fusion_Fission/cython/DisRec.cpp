@@ -1730,6 +1730,8 @@ static PyObject *__pyx_pf_6DisRec_6DisRec_12pyreco_sample_1S_final(struct __pyx_
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tp_new_6DisRec_DisRec(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_float_1_0;
+static PyObject *__pyx_float_neg_4_0;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
@@ -4888,7 +4890,7 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
  * 			gp = f.create_group(gpname)
  * 			self.vmin = 0.01; self.vmax = 0.999; self.N_v = 100             # <<<<<<<<<<<<<<
  * 			self.Tmin = 0.15; self.Tmax = 0.5; self.N_T = 30
- * 			# here we use p_rel in GeV, the 4.0 and 8.6 are for MeV; ln(1000)=6.9
+ * 			# here we use p_rel in GeV; ln(1000)=6.9
  */
     __pyx_v_self->vmin = 0.01;
     __pyx_v_self->vmax = 0.999;
@@ -4898,8 +4900,8 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
  * 			gp = f.create_group(gpname)
  * 			self.vmin = 0.01; self.vmax = 0.999; self.N_v = 100
  * 			self.Tmin = 0.15; self.Tmax = 0.5; self.N_T = 30             # <<<<<<<<<<<<<<
- * 			# here we use p_rel in GeV, the 4.0 and 8.6 are for MeV; ln(1000)=6.9
- * 			self.p_rel_log_min = 4.0-6.9; self.p_rel_log_max = 8.6-6.9; self.N_p_rel = 100
+ * 			# here we use p_rel in GeV; ln(1000)=6.9
+ * 			self.p_rel_log_min = -4.0; self.p_rel_log_max = 1.0; self.N_p_rel = 100
  */
     __pyx_v_self->Tmin = 0.15;
     __pyx_v_self->Tmax = 0.5;
@@ -4907,25 +4909,21 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
 
     /* "DisRec.pyx":153
  * 			self.Tmin = 0.15; self.Tmax = 0.5; self.N_T = 30
- * 			# here we use p_rel in GeV, the 4.0 and 8.6 are for MeV; ln(1000)=6.9
- * 			self.p_rel_log_min = 4.0-6.9; self.p_rel_log_max = 8.6-6.9; self.N_p_rel = 100             # <<<<<<<<<<<<<<
+ * 			# here we use p_rel in GeV; ln(1000)=6.9
+ * 			self.p_rel_log_min = -4.0; self.p_rel_log_max = 1.0; self.N_p_rel = 100             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_3 = PyFloat_FromDouble((4.0 - 6.9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_3);
+    __Pyx_INCREF(__pyx_float_neg_4_0);
+    __Pyx_GIVEREF(__pyx_float_neg_4_0);
     __Pyx_GOTREF(__pyx_v_self->p_rel_log_min);
     __Pyx_DECREF(__pyx_v_self->p_rel_log_min);
-    __pyx_v_self->p_rel_log_min = __pyx_t_3;
-    __pyx_t_3 = 0;
-    __pyx_t_3 = PyFloat_FromDouble((8.6 - 6.9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_3);
+    __pyx_v_self->p_rel_log_min = __pyx_float_neg_4_0;
+    __Pyx_INCREF(__pyx_float_1_0);
+    __Pyx_GIVEREF(__pyx_float_1_0);
     __Pyx_GOTREF(__pyx_v_self->p_rel_log_max);
     __Pyx_DECREF(__pyx_v_self->p_rel_log_max);
-    __pyx_v_self->p_rel_log_max = __pyx_t_3;
-    __pyx_t_3 = 0;
+    __pyx_v_self->p_rel_log_max = __pyx_float_1_0;
     __pyx_v_self->N_p_rel = 0x64;
 
     /* "DisRec.pyx":157
@@ -11023,6 +11021,8 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  __pyx_float_1_0 = PyFloat_FromDouble(1.0); if (unlikely(!__pyx_float_1_0)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_float_neg_4_0 = PyFloat_FromDouble(-4.0); if (unlikely(!__pyx_float_neg_4_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)

@@ -149,8 +149,8 @@ cdef class DisRec(object):
 			gp = f.create_group(gpname)
 			self.vmin = 0.01; self.vmax = 0.999; self.N_v = 100
 			self.Tmin = 0.15; self.Tmax = 0.5; self.N_T = 30
-			# here we use p_rel in GeV, the 4.0 and 8.6 are for MeV; ln(1000)=6.9
-			self.p_rel_log_min = 4.0-6.9; self.p_rel_log_max = 8.6-6.9; self.N_p_rel = 100
+			# here we use p_rel in GeV; ln(1000)=6.9
+			self.p_rel_log_min = -4.0; self.p_rel_log_max = 1.0; self.N_p_rel = 100
 
 			
 			## Initialize dissociation rate table

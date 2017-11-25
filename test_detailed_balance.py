@@ -6,9 +6,9 @@ import h5py
 
 
 #### ------------ multiple runs averaged and compare ---------------- ####
-N_ave = 2		# #of parallel runnings
+N_ave = 2000		# #of parallel runnings
 T = 0.3		
-N_step = 25
+N_step = 2500
 dt = 0.04
 tmax = N_step*dt
 t = np.linspace(0.0, tmax, N_step+1)

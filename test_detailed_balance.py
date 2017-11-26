@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import numpy as np
 import scipy.integrate as si
-from Static_quarkonium_evolution import QQbar_evol
+from Static_diquark_evolution import QQbar_evol
 import h5py
 
 
@@ -22,7 +22,7 @@ P_sample = 10.0		# GeV, initial uniform sampling
 event_gen = QQbar_evol('static', temp_init = T, HQ_scat = True)
 
 for i in range(N_ave):
-	event_gen.initialize(N_Q = Nc0, N_Qbar = Nc0, N_T1S = N1s0, thermal_dist = False, 
+	event_gen.initialize(N_Q = Nc0, N_T1S = N1s0, thermal_dist = False, 
 						uniform_dist = True, Pmax = P_sample)
 	N1s_t.append([])
 	for j in range(N_step+1):
@@ -47,7 +47,7 @@ Rc_t = 1.0 - R1s_t					# ratio
 #### ------------ save the data in a h5py file ------------- ####
 
 
-file1 = h5py.File('UniformT='+str(T)+'N_event='+str(N_ave)+'N_step='+str(N_step)+'Nc0='+str(Nc0)+'N1s0='+str(N1s0)+'.hdf5', 'w')
+file1 = h5py.File('UniformTPmax='+str(P_sample)+'HQT='+str(T)+'N_event='+str(N_ave)+'N_step='+str(N_step)+'Nc0='+str(Nc0)+'N1s0='+str(N1s0)+'.hdf5', 'w')
 file1.create_dataset('percentage', data = R1s_t)
 file1.create_dataset('time', data = t)
 file1.close()

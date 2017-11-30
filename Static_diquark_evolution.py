@@ -21,7 +21,7 @@ R_search = 1.0				  # (fm), pair-search radius in the recombination
 T_1S = 0.4					  # melting temperature of T_1S = 400 MeV
 
 
-####--------- initial sample of heavy Q and Qbar using thermal distribution -------- ####
+####--------- initial sample of heavy Q using thermal distribution -------- ####
 def thermal_dist(temp, mass, momentum):
     return momentum**2*np.exp(-np.sqrt(mass**2+momentum**2)/temp)
 
@@ -46,18 +46,18 @@ def thermal_sample(temp, mass):
     sin_phi = np.sin(phi)
     return np.array([ E, p_try*sin_theta*cos_phi, p_try*sin_theta*sin_phi, p_try*cos_theta ])
 
-####---- end of initial sample of heavy Q and Qbar using thermal distribution ---- ####
+####---- end of initial sample of heavy Q using thermal distribution ---- ####
 
 
 
 
-####--------- initial sample of heavy Q and Qbar using uniform distribution ------ ####
+####--------- initial sample of heavy Q using uniform distribution ------ ####
 def uniform_sample(Pmax, mass):
     px, py, pz = (np.random.rand(3)-0.5)*2*Pmax
     E = np.sqrt(mass**2 + px**2 + py**2 + pz**2)
     return np.array([E, px, py, pz])
 
-####----- end of initial sample of heavy Q and Qbar using uniform distribution ---- ####
+####----- end of initial sample of heavy Q using uniform distribution ---- ####
 
 
 
@@ -74,7 +74,7 @@ class QQbar_evol:
 		## ---------- create the rates reader --------- ##
 		self.rates = DisRec.DisRec()
 		
-####---- initialize Q, Qbar, Quarkonium -- currently we only study Upsilon(1S) ----####
+####---- initialize Q, Quarkonium -- currently we only study Upsilon(1S) ----####
 	def initialize(self, N_Q = 100, N_T1S = 10, Lmax = 10.0, thermal_dist = True,
 	fonll_dist = False, Fonll_path = False, uniform_dist = False, Pmax = 10.0, decaytestmode = False, P_decaytest = [0.0, 0.0, 5.0]):
 		# initial momentum: thermal; Fonll (give the fonll file path), uniform in x,y,z (give the Pmax in GeV)
@@ -209,8 +209,8 @@ class QQbar_evol:
 				rotmomentum_Q2 = LorRot.rotation(recoil_p_Q2, theta_rot, phi_rot)
 				
 				# we now transform them back to the box frame
-				momentum_Q1 = LorRot.lorentz(np.append(E_Q1, rotmomentum_Q1), -v3_in_box)			# final momentum of Q
-				momentum_Q2 = LorRot.lorentz(np.append(E_Q2, rotmomentum_Q2), -v3_in_box)	# final momentum of Qbar
+				momentum_Q1 = LorRot.lorentz(np.append(E_Q1, rotmomentum_Q1), -v3_in_box)	# final momentum of Q1
+				momentum_Q2 = LorRot.lorentz(np.append(E_Q2, rotmomentum_Q2), -v3_in_box)	# final momentum of Q2
 				
 				# positions of Q1 and Q2
 				position_Q1 = self.T1Slist['3-position'][i]
@@ -310,7 +310,7 @@ class QQbar_evol:
 					
 					# momenta
 					pQ1 = self.Qlist['4-momentum'][i]
-					pQ2 = self.Qlist['4-momentum'][pair_list[i][k]%len_Qbar]
+					pQ2 = self.Qlist['4-momentum'][pair_list[i][k]%len_Q]
 					
 					# CM momentum and velocity
 					p_CM = pQ1[1:] + pQ2[1:]		# M_tot = 2M
@@ -327,7 +327,7 @@ class QQbar_evol:
 					p_rel = 0.5*(pQ1_CM - pQ2_CM)
 					p_rel_abs = np.sqrt(np.sum(p_rel**2))
 				
-					# calculate the final quarkonium momenta in the CM frame of QQbar
+					# calculate the final quarkonium momenta in the CM frame of QQ
 					q_T1S, costhetaU, phiU = self.rates.pyreco_sample_1S_final(v_CM_abs, self.T, p_rel_abs)
 					sinthetaU = np.array(1.0-costhetaU**2)
 					# get the 3-component of T1S momentum, where v_CM = z axis
@@ -354,7 +354,7 @@ class QQbar_evol:
 						self.T1Slist['3-position'] = np.append(self.T1Slist['3-position'], [position_T1S], axis=0)
 						self.T1Slist['last_form_time'] = np.append(self.T1Slist['last_form_time'], self.t)
 						
-			## now update Q and Qbar lists
+			## now update Q and Q lists
 			self.Qlist['4-momentum'] = np.delete(self.Qlist['4-momentum'], delete_Q, axis=0)
 			self.Qlist['3-position'] = np.delete(self.Qlist['3-position'], delete_Q, axis=0)
 		

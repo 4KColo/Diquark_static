@@ -1623,14 +1623,14 @@ static const char __pyx_k_pydecay_sample_1S_init[] = "pydecay_sample_1S_init";
 static const char __pyx_k_pyreco_sample_1S_final[] = "pyreco_sample_1S_final";
 static const char __pyx_k_pydecay_sample_1S_final[] = "pydecay_sample_1S_final";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static const char __pyx_k_loading_T_1S_g_b_b_rate_table[] = "loading T(1S)+g <-> b+b rate table";
+static const char __pyx_k_loading_T_1S_g_c_c_rate_table[] = "loading T(1S)+g <-> c+c rate table";
 static const char __pyx_k_Users_Colo4K_Desktop_Thesis_Cod[] = "/Users/Colo4K/Desktop/Thesis/Code_doubly_heavy_baryon/Fusion_Fission/cython/DisRec.pyx";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
-static const char __pyx_k_generating_T_1S_g_b_b_rate_table[] = "generating T(1S)+g -> b+b rate table";
-static const char __pyx_k_generating_b_b_T_1S_g_rate_vol_t[] = "generating b+b -> T(1S)+g rate*vol table, vol in fm^3";
+static const char __pyx_k_generating_T_1S_g_c_c_rate_table[] = "generating T(1S)+g -> c+c rate table";
+static const char __pyx_k_generating_c_c_T_1S_g_rate_vol_t[] = "generating c+c -> T(1S)+g rate*vol table, vol in fm^3";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
@@ -1663,15 +1663,15 @@ static PyObject *__pyx_n_s_exists;
 static PyObject *__pyx_n_s_exp;
 static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_gamma;
-static PyObject *__pyx_kp_s_generating_T_1S_g_b_b_rate_table;
-static PyObject *__pyx_kp_s_generating_b_b_T_1S_g_rate_vol_t;
+static PyObject *__pyx_kp_s_generating_T_1S_g_c_c_rate_table;
+static PyObject *__pyx_kp_s_generating_c_c_T_1S_g_rate_vol_t;
 static PyObject *__pyx_n_s_get_R_1S_dis;
 static PyObject *__pyx_n_s_get_R_1S_reco;
 static PyObject *__pyx_n_s_get_qdRdq_1S_max;
 static PyObject *__pyx_n_s_h5py;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_linspace;
-static PyObject *__pyx_kp_s_loading_T_1S_g_b_b_rate_table;
+static PyObject *__pyx_kp_s_loading_T_1S_g_c_c_rate_table;
 static PyObject *__pyx_n_s_log;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_max;
@@ -4455,7 +4455,7 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
  * 		gpname = 'c-system'
  * 		cdef double params[2]
  * 		if (gpname in f) and (not overwrite):             # <<<<<<<<<<<<<<
- * 			print ("loading T(1S)+g <-> b+b rate table")
+ * 			print ("loading T(1S)+g <-> c+c rate table")
  * 			gp = f[gpname]
  */
   __pyx_t_6 = (__Pyx_PySequence_ContainsTF(__pyx_v_gpname, __pyx_v_f, Py_EQ)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
@@ -4474,15 +4474,15 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
     /* "DisRec.pyx":138
  * 		cdef double params[2]
  * 		if (gpname in f) and (not overwrite):
- * 			print ("loading T(1S)+g <-> b+b rate table")             # <<<<<<<<<<<<<<
+ * 			print ("loading T(1S)+g <-> c+c rate table")             # <<<<<<<<<<<<<<
  * 			gp = f[gpname]
  * 			self.vmin, self.vmax, self.N_v = gp.attrs['v-min-max-N']
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_loading_T_1S_g_b_b_rate_table) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
+    if (__Pyx_PrintOne(0, __pyx_kp_s_loading_T_1S_g_c_c_rate_table) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
 
     /* "DisRec.pyx":139
  * 		if (gpname in f) and (not overwrite):
- * 			print ("loading T(1S)+g <-> b+b rate table")
+ * 			print ("loading T(1S)+g <-> c+c rate table")
  * 			gp = f[gpname]             # <<<<<<<<<<<<<<
  * 			self.vmin, self.vmax, self.N_v = gp.attrs['v-min-max-N']
  * 			self.Tmin, self.Tmax, self.N_T = gp.attrs['T-min-max-N']
@@ -4493,7 +4493,7 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
     __pyx_t_1 = 0;
 
     /* "DisRec.pyx":140
- * 			print ("loading T(1S)+g <-> b+b rate table")
+ * 			print ("loading T(1S)+g <-> c+c rate table")
  * 			gp = f[gpname]
  * 			self.vmin, self.vmax, self.N_v = gp.attrs['v-min-max-N']             # <<<<<<<<<<<<<<
  * 			self.Tmin, self.Tmax, self.N_T = gp.attrs['T-min-max-N']
@@ -4794,7 +4794,7 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
  * 		gpname = 'c-system'
  * 		cdef double params[2]
  * 		if (gpname in f) and (not overwrite):             # <<<<<<<<<<<<<<
- * 			print ("loading T(1S)+g <-> b+b rate table")
+ * 			print ("loading T(1S)+g <-> c+c rate table")
  * 			gp = f[gpname]
  */
     goto __pyx_L5;
@@ -4929,15 +4929,15 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
     /* "DisRec.pyx":157
  * 
  * 			## Initialize dissociation rate table
- * 			print ("generating T(1S)+g -> b+b rate table")             # <<<<<<<<<<<<<<
+ * 			print ("generating T(1S)+g -> c+c rate table")             # <<<<<<<<<<<<<<
  * 			varray = np.linspace(self.vmin, self.vmax, self.N_v)
  * 			Tarray = np.linspace(self.Tmin, self.Tmax, self.N_T)
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_generating_T_1S_g_b_b_rate_table) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+    if (__Pyx_PrintOne(0, __pyx_kp_s_generating_T_1S_g_c_c_rate_table) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
 
     /* "DisRec.pyx":158
  * 			## Initialize dissociation rate table
- * 			print ("generating T(1S)+g -> b+b rate table")
+ * 			print ("generating T(1S)+g -> c+c rate table")
  * 			varray = np.linspace(self.vmin, self.vmax, self.N_v)             # <<<<<<<<<<<<<<
  * 			Tarray = np.linspace(self.Tmin, self.Tmax, self.N_T)
  * 			grid_v, grid_T = np.meshgrid(varray, Tarray)
@@ -5011,7 +5011,7 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
     __pyx_t_3 = 0;
 
     /* "DisRec.pyx":159
- * 			print ("generating T(1S)+g -> b+b rate table")
+ * 			print ("generating T(1S)+g -> c+c rate table")
  * 			varray = np.linspace(self.vmin, self.vmax, self.N_v)
  * 			Tarray = np.linspace(self.Tmin, self.Tmax, self.N_T)             # <<<<<<<<<<<<<<
  * 			grid_v, grid_T = np.meshgrid(varray, Tarray)
@@ -5553,15 +5553,15 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
     /* "DisRec.pyx":171
  * 
  * 			## Initialize recombination rate*vol table
- * 			print ("generating b+b -> T(1S)+g rate*vol table, vol in fm^3")             # <<<<<<<<<<<<<<
+ * 			print ("generating c+c -> T(1S)+g rate*vol table, vol in fm^3")             # <<<<<<<<<<<<<<
  * 			p_relarray = np.exp( np.linspace(self.p_rel_log_min, self.p_rel_log_max, self.N_p_rel) )
  * 			grd_v, grd_T, grd_p_rel = np.meshgrid(varray, Tarray, p_relarray)
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_generating_b_b_T_1S_g_rate_vol_t) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
+    if (__Pyx_PrintOne(0, __pyx_kp_s_generating_c_c_T_1S_g_rate_vol_t) < 0) __PYX_ERR(0, 171, __pyx_L1_error)
 
     /* "DisRec.pyx":172
  * 			## Initialize recombination rate*vol table
- * 			print ("generating b+b -> T(1S)+g rate*vol table, vol in fm^3")
+ * 			print ("generating c+c -> T(1S)+g rate*vol table, vol in fm^3")
  * 			p_relarray = np.exp( np.linspace(self.p_rel_log_min, self.p_rel_log_max, self.N_p_rel) )             # <<<<<<<<<<<<<<
  * 			grd_v, grd_T, grd_p_rel = np.meshgrid(varray, Tarray, p_relarray)
  * 			self.RV_1S_reco = pyR_1S_reco(grd_v, grd_T, grd_p_rel).transpose(1,0,2)
@@ -5678,7 +5678,7 @@ static int __pyx_pf_6DisRec_6DisRec___cinit__(struct __pyx_obj_6DisRec_DisRec *_
     __pyx_t_3 = 0;
 
     /* "DisRec.pyx":173
- * 			print ("generating b+b -> T(1S)+g rate*vol table, vol in fm^3")
+ * 			print ("generating c+c -> T(1S)+g rate*vol table, vol in fm^3")
  * 			p_relarray = np.exp( np.linspace(self.p_rel_log_min, self.p_rel_log_max, self.N_p_rel) )
  * 			grd_v, grd_T, grd_p_rel = np.meshgrid(varray, Tarray, p_relarray)             # <<<<<<<<<<<<<<
  * 			self.RV_1S_reco = pyR_1S_reco(grd_v, grd_T, grd_p_rel).transpose(1,0,2)
@@ -10757,15 +10757,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_exp, __pyx_k_exp, sizeof(__pyx_k_exp), 0, 0, 1, 1},
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_gamma, __pyx_k_gamma, sizeof(__pyx_k_gamma), 0, 0, 1, 1},
-  {&__pyx_kp_s_generating_T_1S_g_b_b_rate_table, __pyx_k_generating_T_1S_g_b_b_rate_table, sizeof(__pyx_k_generating_T_1S_g_b_b_rate_table), 0, 0, 1, 0},
-  {&__pyx_kp_s_generating_b_b_T_1S_g_rate_vol_t, __pyx_k_generating_b_b_T_1S_g_rate_vol_t, sizeof(__pyx_k_generating_b_b_T_1S_g_rate_vol_t), 0, 0, 1, 0},
+  {&__pyx_kp_s_generating_T_1S_g_c_c_rate_table, __pyx_k_generating_T_1S_g_c_c_rate_table, sizeof(__pyx_k_generating_T_1S_g_c_c_rate_table), 0, 0, 1, 0},
+  {&__pyx_kp_s_generating_c_c_T_1S_g_rate_vol_t, __pyx_k_generating_c_c_T_1S_g_rate_vol_t, sizeof(__pyx_k_generating_c_c_T_1S_g_rate_vol_t), 0, 0, 1, 0},
   {&__pyx_n_s_get_R_1S_dis, __pyx_k_get_R_1S_dis, sizeof(__pyx_k_get_R_1S_dis), 0, 0, 1, 1},
   {&__pyx_n_s_get_R_1S_reco, __pyx_k_get_R_1S_reco, sizeof(__pyx_k_get_R_1S_reco), 0, 0, 1, 1},
   {&__pyx_n_s_get_qdRdq_1S_max, __pyx_k_get_qdRdq_1S_max, sizeof(__pyx_k_get_qdRdq_1S_max), 0, 0, 1, 1},
   {&__pyx_n_s_h5py, __pyx_k_h5py, sizeof(__pyx_k_h5py), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_linspace, __pyx_k_linspace, sizeof(__pyx_k_linspace), 0, 0, 1, 1},
-  {&__pyx_kp_s_loading_T_1S_g_b_b_rate_table, __pyx_k_loading_T_1S_g_b_b_rate_table, sizeof(__pyx_k_loading_T_1S_g_b_b_rate_table), 0, 0, 1, 0},
+  {&__pyx_kp_s_loading_T_1S_g_c_c_rate_table, __pyx_k_loading_T_1S_g_c_c_rate_table, sizeof(__pyx_k_loading_T_1S_g_c_c_rate_table), 0, 0, 1, 0},
   {&__pyx_n_s_log, __pyx_k_log, sizeof(__pyx_k_log), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_max, __pyx_k_max, sizeof(__pyx_k_max), 0, 0, 1, 1},

@@ -126,7 +126,7 @@ double decay_sample_1S_costheta_q(double q, double v, double T){
 	return ( -std::log(1. - std::exp(y_fac1))/coeff - 1. )/v;
 }
 
-// return the final relative momentum between Q-Qbar pair
+// return the final relative momentum between Q-Q pair
 double decay_sample_1S_final_p(double q){
     return std::sqrt((q-E1S)*M);
 }

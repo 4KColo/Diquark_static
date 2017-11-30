@@ -135,7 +135,7 @@ cdef class DisRec(object):
 		gpname = 'c-system'
 		cdef double params[2]
 		if (gpname in f) and (not overwrite):
-			print ("loading T(1S)+g <-> b+b rate table")
+			print ("loading T(1S)+g <-> c+c rate table")
 			gp = f[gpname]
 			self.vmin, self.vmax, self.N_v = gp.attrs['v-min-max-N']
 			self.Tmin, self.Tmax, self.N_T = gp.attrs['T-min-max-N']
@@ -154,7 +154,7 @@ cdef class DisRec(object):
 
 			
 			## Initialize dissociation rate table
-			print ("generating T(1S)+g -> b+b rate table")
+			print ("generating T(1S)+g -> c+c rate table")
 			varray = np.linspace(self.vmin, self.vmax, self.N_v)
 			Tarray = np.linspace(self.Tmin, self.Tmax, self.N_T)
 			grid_v, grid_T = np.meshgrid(varray, Tarray)
@@ -168,7 +168,7 @@ cdef class DisRec(object):
 
 
 			## Initialize recombination rate*vol table
-			print ("generating b+b -> T(1S)+g rate*vol table, vol in fm^3")
+			print ("generating c+c -> T(1S)+g rate*vol table, vol in fm^3")
 			p_relarray = np.exp( np.linspace(self.p_rel_log_min, self.p_rel_log_max, self.N_p_rel) )
 			grd_v, grd_T, grd_p_rel = np.meshgrid(varray, Tarray, p_relarray)
 			self.RV_1S_reco = pyR_1S_reco(grd_v, grd_T, grd_p_rel).transpose(1,0,2)

@@ -12,12 +12,12 @@ import LorRot
 
 #### ---------------------- some constants -----------------------------
 alpha_s = 0.3 				  # for charmonium
-M = 1.29 					  # GeV c-quark
+M = 4.65 					  # GeV c-quark
 a_B = 3.0/(alpha_s*M)
 E_1S = alpha_s**2*M/9.0		  # T(1S), here is magnitude, true value is its negative
 M_1S = M*2.0 - E_1S  		  # mass of T(1S)
 C1 = 0.197327                 # 0.197 GeV*fm = 1
-R_search = 1.0				  # (fm), pair-search radius in the recombination
+R_search = 2.5				  # (fm), pair-search radius in the recombination
 T_1S = 0.4					  # melting temperature of T_1S = 400 MeV
 
 
@@ -61,7 +61,7 @@ def uniform_sample(Pmax, mass):
 
 
 
-class QQbar_evol:
+class QQ_evol:
 ####---- input the medium_type when calling the class ----####
 	def __init__(self, medium_type = 'static', temp_init = 0.3, recombine = True, HQ_scat = False):
 		self.type = medium_type
@@ -391,61 +391,61 @@ class QQbar_evol:
 #### -------------------- test recombination -------------------- ####
 	def testrun(self):
 		len_Q = len(self.Qlist['4-momentum'])
-		len_Qbar = len(self.Qbarlist['4-momentum'])
 		
 		total_reco_rate = 0.0
 		
 		# make the periodic box 26 times bigger!
-		Qbar_x_list = np.concatenate((self.Qbarlist['3-position'], 
-		self.Qbarlist['3-position']+[0.0, 0.0, self.Lmax], self.Qbarlist['3-position']+[0.0, 0.0, -self.Lmax],
-		self.Qbarlist['3-position']+[0.0, self.Lmax, 0.0], self.Qbarlist['3-position']+[0.0, -self.Lmax, 0.0],
-		self.Qbarlist['3-position']+[self.Lmax, 0.0, 0.0], self.Qbarlist['3-position']+[-self.Lmax, 0.0, 0.0],
-		self.Qbarlist['3-position']+[0.0, self.Lmax, self.Lmax], self.Qbarlist['3-position']+[0.0, self.Lmax, -self.Lmax], self.Qbarlist['3-position']+[0.0, -self.Lmax, self.Lmax], self.Qbarlist['3-position']+[0.0, -self.Lmax, -self.Lmax],
-		self.Qbarlist['3-position']+[self.Lmax, 0.0, self.Lmax], self.Qbarlist['3-position']+[self.Lmax, 0.0, -self.Lmax], self.Qbarlist['3-position']+[-self.Lmax, 0.0, self.Lmax], self.Qbarlist['3-position']+[-self.Lmax, 0.0, -self.Lmax],
-		self.Qbarlist['3-position']+[self.Lmax, self.Lmax, 0.0], self.Qbarlist['3-position']+[self.Lmax, -self.Lmax, 0.0], self.Qbarlist['3-position']+[-self.Lmax, self.Lmax, 0.0], self.Qbarlist['3-position']+[-self.Lmax, -self.Lmax, 0.0],
-		self.Qbarlist['3-position']+[self.Lmax, self.Lmax, self.Lmax], self.Qbarlist['3-position']+[self.Lmax, self.Lmax, -self.Lmax], self.Qbarlist['3-position']+[self.Lmax, -self.Lmax, self.Lmax], self.Qbarlist['3-position']+[-self.Lmax, self.Lmax, self.Lmax],
-		self.Qbarlist['3-position']+[-self.Lmax, -self.Lmax, -self.Lmax], self.Qbarlist['3-position']+[-self.Lmax, -self.Lmax, self.Lmax], self.Qbarlist['3-position']+[-self.Lmax, self.Lmax, -self.Lmax], self.Qbarlist['3-position']+[self.Lmax, -self.Lmax, -self.Lmax]),
+		Q_x_list = np.concatenate((self.Qlist['3-position'], 
+		self.Qlist['3-position']+[0.0, 0.0, self.Lmax], self.Qlist['3-position']+[0.0, 0.0, -self.Lmax],
+		self.Qlist['3-position']+[0.0, self.Lmax, 0.0], self.Qlist['3-position']+[0.0, -self.Lmax, 0.0],
+		self.Qlist['3-position']+[self.Lmax, 0.0, 0.0], self.Qlist['3-position']+[-self.Lmax, 0.0, 0.0],
+		self.Qlist['3-position']+[0.0, self.Lmax, self.Lmax], self.Qlist['3-position']+[0.0, self.Lmax, -self.Lmax], self.Qlist['3-position']+[0.0, -self.Lmax, self.Lmax], self.Qlist['3-position']+[0.0, -self.Lmax, -self.Lmax],
+		self.Qlist['3-position']+[self.Lmax, 0.0, self.Lmax], self.Qlist['3-position']+[self.Lmax, 0.0, -self.Lmax], self.Qlist['3-position']+[-self.Lmax, 0.0, self.Lmax], self.Qlist['3-position']+[-self.Lmax, 0.0, -self.Lmax],
+		self.Qlist['3-position']+[self.Lmax, self.Lmax, 0.0], self.Qlist['3-position']+[self.Lmax, -self.Lmax, 0.0], self.Qlist['3-position']+[-self.Lmax, self.Lmax, 0.0], self.Qlist['3-position']+[-self.Lmax, -self.Lmax, 0.0],
+		self.Qlist['3-position']+[self.Lmax, self.Lmax, self.Lmax], self.Qlist['3-position']+[self.Lmax, self.Lmax, -self.Lmax], self.Qlist['3-position']+[self.Lmax, -self.Lmax, self.Lmax], self.Qlist['3-position']+[-self.Lmax, self.Lmax, self.Lmax],
+		self.Qlist['3-position']+[-self.Lmax, -self.Lmax, -self.Lmax], self.Qlist['3-position']+[-self.Lmax, -self.Lmax, self.Lmax], self.Qlist['3-position']+[-self.Lmax, self.Lmax, -self.Lmax], self.Qlist['3-position']+[self.Lmax, -self.Lmax, -self.Lmax]),
 		axis = 0 )
 			
-		pair_search = cKDTree(Qbar_x_list)
-		# for each Q, obtain the Qbar indexes within R_search
+		pair_search = cKDTree(Q_x_list)
+		# for each Q1, obtain the Q2 indexes within R_search
 		pair_list = pair_search.query_ball_point(self.Qlist['3-position'], r = R_search)
 		
 		for i in range(len_Q):
-			len_recoQbar = len(pair_list[i])
+			len_recoQ2 = len(pair_list[i])
 			reco_rate = []
-			for j in range(len_recoQbar):		# loop over Qbar within R_search
+			for j in range(len_recoQ2):		# loop over Qbar within R_search
 				xQ = self.Qlist['3-position'][i]
-				xQbar = Qbar_x_list[pair_list[i][j]]
+				xQbar = Q_x_list[pair_list[i][j]]
 				x_rel = xQ - xQbar
-				i_Qbar_mod = pair_list[i][j]%len_Qbar	# use for momentum and delete_index
-				rdotp = np.sum( x_rel* (self.Qlist['4-momentum'][i][1:] - self.Qbarlist['4-momentum'][i_Qbar_mod][1:]) )
+				i_Q_mod = pair_list[i][j]%len_Q	# use for momentum and delete_index
+				rdotp = np.sum( x_rel* (self.Qlist['4-momentum'][i][1:] - self.Qlist['4-momentum'][i_Q_mod][1:]) )
 					
-				if  rdotp < 0.0:
+				if  rdotp < 0.0 and i != i_Q_mod:
 					r_rel = np.sqrt(np.sum(x_rel**2))
 					x_CM = 0.5*( xQ + xQbar )
 					
 					# momenta in the static medium frame
-					pQ = self.Qlist['4-momentum'][i]
-					pQbar = self.Qbarlist['4-momentum'][i_Qbar_mod]
+					pQ1 = self.Qlist['4-momentum'][i]
+					pQ2 = self.Qlist['4-momentum'][i_Q_mod]
 						
 					# CM momentum and velocity
-					p_CM = pQ[1:] + pQbar[1:]		# M_tot = 2M
+					p_CM = pQ1[1:] + pQ2[1:]		# M_tot = 2M
 					p_CM_sqd = np.sum(p_CM**2)
 					E_CM = np.sqrt(p_CM_sqd + (2.*M)**2)
 					v_CM_abs = np.sqrt(p_CM_sqd)/E_CM
 					v_CM = p_CM/E_CM
 						
 					# viewed in the CM frame
-					pQ_CM = LorRot.lorentz(pQ, v_CM)
-					pQbar_CM = LorRot.lorentz(pQbar, v_CM)
+					pQ1_CM = LorRot.lorentz(pQ1, v_CM)
+					pQ2_CM = LorRot.lorentz(pQ2, v_CM)
 						
 					# relative momentum inside CM frame
-					p_rel = 0.5*(pQ_CM - pQbar_CM)
+					p_rel = 0.5*(pQ1_CM - pQ2_CM)
 					p_rel_abs = np.sqrt(np.sum(p_rel**2))
 					
-					# the factor of 2 is to account the theta function renormalization					
-					reco_rate.append(2.0*self.rates.get_R_1S_reco(v_CM_abs, self.T, p_rel_abs, r_rel))
+					# the factor of 2 is to account the theta function renormalization
+					# one half factor is for avoiding double counting, since we loop over Q_list and find pairs within Q_list					
+					reco_rate.append(0.5*2.0*6./9.*self.rates.get_R_1S_reco(v_CM_abs, self.T, p_rel_abs, r_rel))
 			
 			reco_rate = np.array(reco_rate)
 			total_reco_rate += np.sum(reco_rate)

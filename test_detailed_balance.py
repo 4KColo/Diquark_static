@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 import numpy as np
 import scipy.integrate as si
-from Static_diquark_evolution import QQbar_evol
+from Static_diquark_evolution import QQ_evol
 import h5py
 
 
 #### ------------ multiple runs averaged and compare ---------------- ####
-N_ave = 2000		# #of parallel runnings
+N_ave = 1000		# #of parallel runnings
 T = 0.3		
-N_step = 2500
+N_step = 5000
 dt = 0.04
 tmax = N_step*dt
 t = np.linspace(0.0, tmax, N_step+1)
@@ -19,11 +19,10 @@ P_sample = 10.0		# GeV, initial uniform sampling
 
 
 # define the event generator
-event_gen = QQbar_evol('static', temp_init = T, HQ_scat = True)
+event_gen = QQ_evol('static', temp_init = T, HQ_scat = False)
 
 for i in range(N_ave):
-	event_gen.initialize(N_Q = Nc0, N_T1S = N1s0, thermal_dist = False, 
-						uniform_dist = True, Pmax = P_sample)
+	event_gen.initialize(N_Q = Nc0, N_T1S = N1s0, thermal_dist = True )#, uniform_dist = True, Pmax = P_sample)
 	N1s_t.append([])
 	for j in range(N_step+1):
 		N1s_t[i].append(len(event_gen.T1Slist['4-momentum']))	# store N(t) for each event
@@ -46,8 +45,8 @@ Rc_t = 1.0 - R1s_t					# ratio
 
 #### ------------ save the data in a h5py file ------------- ####
 
-
-file1 = h5py.File('UniformTPmax='+str(P_sample)+'HQT='+str(T)+'N_event='+str(N_ave)+'N_step='+str(N_step)+'Nc0='+str(Nc0)+'N1s0='+str(N1s0)+'.hdf5', 'w')
+file1 = h5py.File('ThermalnoHQT='+str(T)+'N_event='+str(N_ave)+'N_step='+str(N_step)+'Nc0='+str(Nc0)+'N1s0='+str(N1s0)+'.hdf5', 'w')
+#file1 = h5py.File('UniformTPmax='+str(P_sample)+'HQT='+str(T)+'N_event='+str(N_ave)+'N_step='+str(N_step)+'Nc0='+str(Nc0)+'N1s0='+str(N1s0)+'.hdf5', 'w')
 file1.create_dataset('percentage', data = R1s_t)
 file1.create_dataset('time', data = t)
 file1.close()

@@ -11,13 +11,13 @@ import LorRot
 
 
 #### ---------------------- some constants -----------------------------
-alpha_s = 0.3 				  # for charmonium
-M = 4.65 					  # GeV c-quark
+alpha_s = 0.4				  # 0.4 for charmonium and 0.3 for bottom
+M = 1.3 					  # GeV c-quark
 a_B = 3.0/(alpha_s*M)
 E_1S = alpha_s**2*M/9.0		  # T(1S), here is magnitude, true value is its negative
 M_1S = M*2.0 - E_1S  		  # mass of T(1S)
 C1 = 0.197327                 # 0.197 GeV*fm = 1
-R_search = 2.5				  # (fm), pair-search radius in the recombination
+R_search = 3.0				  # (fm), pair-search radius in the recombination
 T_1S = 0.4					  # melting temperature of T_1S = 400 MeV
 
 
@@ -246,7 +246,7 @@ class QQ_evol:
 			# for each Q1, obtain the Q2 indexes within R_search
 			pair_list = pair_search.query_ball_point(self.Qlist['3-position'], r = R_search)
 			
-			for i in range(len_Q):		# loop over Q
+			for i in range(len_Q):		# loop over Q1
 				len_recoQ2 = len(pair_list[i])
 				reco_rate = []
 				for j in range(len_recoQ2):		# loop over Q2 within R_search

@@ -31,10 +31,10 @@ for i in range(N_ave):
 N1s_t = np.array(N1s_t)
 N1s_t_ave = np.sum(N1s_t, axis = 0)/(N_ave + 0.0)	# averaged number of 1S state (time-sequenced)
 
-Nc_t_ave = Nc0 + N1s0 - N1s_t_ave		# time-sequenced charm quark number
+Nc_t_ave = Nc0 + 2.0*N1s0 - N1s_t_ave		# time-sequenced charm quark number
 
-R1s_t = N1s_t_ave/(Nc0+N1s0+0.0)	# ratio
-Rc_t = 1.0 - R1s_t					# ratio
+R1s_t = 2.0*N1s_t_ave/(Nc0+2.0*N1s0)	# ratio of number of Q in the diquark
+Rc_t = 1.0 - R1s_t						# ratio
 
 
 #### ------------ end of multiple runs averaged and compare ---------- ####

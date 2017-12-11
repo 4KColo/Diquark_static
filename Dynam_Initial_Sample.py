@@ -61,7 +61,7 @@ class Dynam_Initial_Sample:
 		for i in range(100):	# i is pT
 			for j in range(41):	# j is y
 				dsigma_dpT2dy[i][j] = data[(41*i + j)*3 + 2]
-		dsigma_normed = dsigma_dpT2dy/np.max(dsigma_dpT2dy+0.01)
+		dsigma_normed = dsigma_dpT2dy/(np.max(dsigma_dpT2dy)+0.001)
 		
 		N = Xsect[str(int(energy_GeV))] * T_AA_mb	# averaged number of charm produced
 		Nsam = int(N) + 1	# sampled number

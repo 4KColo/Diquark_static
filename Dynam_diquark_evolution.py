@@ -44,7 +44,7 @@ class QQ_evol:
 		if self.type == 'dynamical':
 			## ----- create dictionaries to store momenta, positions, id ----- ##
 			self.Qlist = {'4-momentum': [], '3-position': [], 'id': 5, 'last_t23': [], 'last_t32': [], 'last_scatter_dt':[]}
-			self.T1Slist = {'4-momentum': [], '3-position': [], 'id': 533, 'last_form_time': [], 'last_t23': [], 'last_t32': []}
+			self.T1Slist = {'4-momentum': [], '3-position': [], 'id': 533, 'last_form_time': [], 'last_t23': [], 'last_t32': [], 'last_scatter_dt':[}
 
 			
 			## -------------- create init p,x sampler ------------ ##
@@ -111,9 +111,10 @@ class QQ_evol:
 				if T_Vxyz[0] >= Tc:
 					timer = 0.0
 					p_di = self.T1Slist['4-momentum'][i]
-					dt23 = self.T1Slist['last_t23'][i]
-					dt32 = self.T1Slist['last_t32'][i]
-					while timer <= dt:
+					dt23 = max(0.0, self.t - self.T1Slist['last_t23'][i])
+					dt32 = max(0.0, self.t - self.T1Slist['last_t32'][i])
+					dt_real = dt + self.T1Slist['last_scatter_dt'][i]
+					while timer <= dt_real:
 						channel, dtHdi, p_di = self.Hdi_event.update_HQ_LBT(p_di, T_Vxyz[1:], T_Vxyz[0], dt23, dt32)
 						if channel == 2 or channel == 3:
 							t23 = self.t + timer
@@ -122,6 +123,7 @@ class QQ_evol:
 							t32 = self.t + timer
 							self.T1Slist['last_t32'][i] = t32
 						timer += dtHdi*C1
+					self.T1Slist['last_scatter_dt'][i] = dt_real - timer
 					self.T1Slist['4-momentum'][i] = p_di
 		### ---------- end of heavy diquark diffusion --------- ###
 		
@@ -133,6 +135,7 @@ class QQ_evol:
 		add_xQ = []
 		add_t23 = []
 		add_t32 = []
+		add_dt_last = []
 		
 		for i in range(len_T1S):
 			T_Vxyz = self.hydro.cell_info(self.t, self.T1Slist['3-position'][i])		# temp, vx, vy, vz
@@ -194,6 +197,8 @@ class QQ_evol:
 					add_t23.append(self.t)
 					add_t32.append(self.t)
 					add_t32.append(self.t)
+					add_dt_last.append(0.0)
+					add_dt_last.append(0.0)
 		### ------------------ end of decay ------------------- ###
 		
 		
@@ -319,18 +324,21 @@ class QQ_evol:
 						self.T1Slist['last_form_time'] = np.array([self.t])
 						self.T1Slist['last_t23'] = np.array([self.t])
 						self.T1Slist['last_t32'] = np.array([self.t])
+						self.T1Slist['last_scatter_dt'] = np.array([0.0])
 					else:
 						self.T1Slist['4-momentum'] = np.append(self.T1Slist['4-momentum'], [momentum_T1S], axis=0)
 						self.T1Slist['3-position'] = np.append(self.T1Slist['3-position'], [position_T1S], axis=0)
 						self.T1Slist['last_form_time'] = np.append(self.T1Slist['last_form_time'], self.t)
 						self.T1Slist['last_t23'] = np.append(self.T1Slist['last_t23'], self.t)
 						self.T1Slist['last_t32'] = np.append(self.T1Slist['last_t32'], self.t)
+						self.T1Slist['last_scatter_dt'] = np.append(self.T1Slist['last_scatter_dt'], 0.0)
 						
 			## now update Q1 and Q2 lists
 			self.Qlist['4-momentum'] = np.delete(self.Qlist['4-momentum'], delete_Q, axis=0)
 			self.Qlist['3-position'] = np.delete(self.Qlist['3-position'], delete_Q, axis=0)
 			self.Qlist['last_t23'] = np.delete(self.Qlist['last_t23'], delete_Q)
 			self.Qlist['last_t32'] = np.delete(self.Qlist['last_t32'], delete_Q)
+			self.Qlist['last_scatter_dt'] = np.delete(self.Qlist['last_scatter_dt'], delete_Q)
 		### -------------- end of recombination --------------- ###
 		
 		
@@ -346,17 +354,20 @@ class QQ_evol:
 			self.T1Slist['last_form_time'] = np.delete(self.T1Slist['last_form_time'], delete_T1S)
 			self.T1Slist['last_t23'] = np.delete(self.T1Slist['last_t23'], delete_T1S)
 			self.T1Slist['last_t32'] = np.delete(self.T1Slist['last_t32'], delete_T1S)
+			self.T1Slist['last_scatter_dt'] = np.delete(self.Qlist['last_scatter_dt'], delete_T1S)
 			
 			if len(self.Qlist['4-momentum']) == 0:
 				self.Qlist['3-position'] = np.array(add_xQ)
 				self.Qlist['4-momentum'] = np.array(add_pQ)
 				self.Qlist['last_t23'] = np.array(add_t23)
 				self.Qlist['last_t32'] = np.array(add_t32)
+				self.Qlist['last_scatter_dt'] = np.array(add_dt_last)
 			else:
 				self.Qlist['3-position'] = np.append(self.Qlist['3-position'], add_xQ, axis=0)
 				self.Qlist['4-momentum'] = np.append(self.Qlist['4-momentum'], add_pQ, axis=0)
 				self.Qlist['last_t23'] = np.append(self.Qlist['last_t23'], add_t23)
 				self.Qlist['last_t32'] = np.append(self.Qlist['last_t23'], add_t32)
+				self.Qlist['last_scatter_dt'] = np.append(self.Qlist['last_scatter_dt'], add_dt_last)
 		### ---------- end of update lists due to decay ------- ###
 		
 #### ----------------- end of evolution function ----------------- ####	

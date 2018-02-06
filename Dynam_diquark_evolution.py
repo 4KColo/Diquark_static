@@ -18,7 +18,7 @@ E_1S = alpha_s**2*M/9.0		  # T(1S), here is magnitude, true value is its negativ
 M_1S = M*2.0 - E_1S  		  # mass of T(1S)
 C1 = 0.197327                 # 0.197 GeV*fm = 1
 R_search = 3.0				  # (fm), pair-search radius in the recombination
-T_1S = 0.4					  # melting temperature of T_1S = 400 MeV
+T_1S = 0.25					  # melting temperature of T_1S = 250 MeV
 Tc = 0.154				  	  # critical temperature of QGP
 
 
@@ -44,7 +44,7 @@ class QQ_evol:
 		if self.type == 'dynamical':
 			## ----- create dictionaries to store momenta, positions, id ----- ##
 			self.Qlist = {'4-momentum': [], '3-position': [], 'id': 5, 'last_t23': [], 'last_t32': [], 'last_scatter_dt':[]}
-			self.T1Slist = {'4-momentum': [], '3-position': [], 'id': 533, 'last_form_time': [], 'last_t23': [], 'last_t32': [], 'last_scatter_dt':[}
+			self.T1Slist = {'4-momentum': [], '3-position': [], 'id': 533, 'last_form_time': [], 'last_t23': [], 'last_t32': [], 'last_scatter_dt':[]}
 
 			
 			## -------------- create init p,x sampler ------------ ##
@@ -223,7 +223,7 @@ class QQ_evol:
 					x_CM = 0.5*( xQ1 + xQ2 )					
 					T_Vxyz = self.hydro.cell_info(self.t, x_CM)
 					#rdotp = np.sum( x_rel* (self.Qlist['4-momentum'][i][1:] - self.Qlist['4-momentum'][pair_list[i][j]][1:]) )
-					if  T_Vxyz[0] >= Tc and pair_list[i][j] not in delete_Q and i != pair_list[i][j]:
+					if  T_Vxyz[0] >= Tc and T_Vxyz[0] <= T_1S and pair_list[i][j] not in delete_Q and i != pair_list[i][j]:
 					#if T_Vxyz[0] >= Tc and rdotp < 0.0 and pair_list[i][j] not in delete_Qbar and i != pair_list[i][j]:
 						r_rel = np.sqrt(np.sum(x_rel**2))
 						# CM energy in the lab frame
@@ -256,9 +256,10 @@ class QQ_evol:
 				
 				# get the recombine probability in the hydro cell frame
 				# dt' in hydro cell = E_CMcell / E_CMlab * dt in lab frame
-				# the factor of 2 is for the theta function normalization
+				### the factor of 2 is for the theta function normalization ### not needed any more
 				# one half avoiding double counting in the loops
-				reco_prob = 0.5*6./9.*np.array(reco_rate)*dt/C1
+				# 3/4 factor is for the spin triplet: the diquark has to be in the S=1 state
+				reco_prob = 0.5*6./9.*0.75*np.array(reco_rate)*dt/C1
 				total_reco_prob = np.sum(reco_prob)
 				reject_prob = np.random.rand(1)
 				if total_reco_prob > reject_prob:
@@ -347,6 +348,8 @@ class QQ_evol:
 		add_xQ = np.array(add_xQ)
 		add_t23 = np.array(add_t23)
 		add_t32 = np.array(add_t32)
+		add_dt_last = np.array(add_dt_last)
+		
 		if len(add_pQ):	
 			# if there is at least quarkonium decays, we need to update all the three lists
 			self.T1Slist['3-position'] = np.delete(self.T1Slist['3-position'], delete_T1S, axis=0) # delete along the axis = 0
@@ -357,11 +360,11 @@ class QQ_evol:
 			self.T1Slist['last_scatter_dt'] = np.delete(self.Qlist['last_scatter_dt'], delete_T1S)
 			
 			if len(self.Qlist['4-momentum']) == 0:
-				self.Qlist['3-position'] = np.array(add_xQ)
-				self.Qlist['4-momentum'] = np.array(add_pQ)
-				self.Qlist['last_t23'] = np.array(add_t23)
-				self.Qlist['last_t32'] = np.array(add_t32)
-				self.Qlist['last_scatter_dt'] = np.array(add_dt_last)
+				self.Qlist['3-position'] = add_xQ
+				self.Qlist['4-momentum'] = add_pQ
+				self.Qlist['last_t23'] = add_t23
+				self.Qlist['last_t32'] = add_t32
+				self.Qlist['last_scatter_dt'] = add_dt_last
 			else:
 				self.Qlist['3-position'] = np.append(self.Qlist['3-position'], add_xQ, axis=0)
 				self.Qlist['4-momentum'] = np.append(self.Qlist['4-momentum'], add_pQ, axis=0)
